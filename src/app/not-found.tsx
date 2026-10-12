@@ -1,0 +1,1 @@
+export default function NotFound() { return <main className="error-page"><p className="eyebrow">ELETRICISTA MARTINS · 404</p><h1>Essa conexão<br />não foi encontrada.</h1><p>Volte ao início para encontrar nossos serviços.</p><a className="button button-primary" href="/">Voltar ao início →</a></main>; }

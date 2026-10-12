@@ -1,0 +1,145 @@
+.inspiration-section { background: #f0f0e9; color: #161b1d; padding: 85px 0 65px; }
+.inspiration-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 37px; }
+.inspiration-heading .eyebrow { color: #505a5c; font-size: 8px; letter-spacing: 1.4px; margin-bottom: 20px; }
+.inspiration-heading h2 { font-size: clamp(34px, 3.5vw, 50px); line-height: 1.09; letter-spacing: -2px; }
+.inspiration-heading h2 > span { color: #6e7776; }
+.inspiration-heading-aside { padding-bottom: 4px; }
+.inspiration-heading-aside p { font-size: 12px; line-height: 1.85; color: #596361; }
+.inspiration-heading-aside > span { display: block; margin-top: 18px; color: #5d6864; font-size: 6px; font-weight: 800; letter-spacing: 1px; }
+.inspiration-showcase { display: grid; grid-template-columns: 1.7fr 1fr; min-height: 435px; }
+.inspiration-image { position: relative; overflow: hidden; min-width: 0; background: #c5c8be; touch-action: pan-y pinch-zoom; }
+.inspiration-image > img { object-fit: cover; object-position: center 53%; animation: inspiration-photo-in .35s ease-out; }
+.inspiration-image::after { content: ""; position: absolute; inset: 68% 0 0; background: linear-gradient(transparent, #0d141187); pointer-events: none; }
+.inspiration-image-disclaimer { position: absolute; top: 21px; left: 23px; background: #f0f0e9ed; color: #303b32; border: 1px solid #fff7; padding: 7px 10px; font-size: 6px; letter-spacing: 1px; font-weight: 800; }
+.inspiration-image-meta { display: flex; align-items: center; justify-content: space-between; gap: 20px; position: absolute; bottom: 20px; left: 23px; right: 23px; z-index: 2; }
+.inspiration-image-meta > span { display: flex; gap: 10px; align-items: center; font-family: var(--font-display); font-size: 10px; color: #fff; letter-spacing: 1.2px; }
+.inspiration-image-meta i { display: block; width: 27px; height: 1px; background: #ffad6d; }
+.inspiration-enlarge { display: flex; align-items: center; gap: 17px; padding: 11px 13px; min-height: 43px; background: #f3f3ecef; color: #17241b; font-size: 9px; font-weight: 700; border: 1px solid #fff8; transition: background .2s; }
+.inspiration-enlarge:hover { background: #ff710a; }
+.inspiration-enlarge:disabled { opacity: .5; }
+.inspiration-story { display: flex; flex-direction: column; padding: 30px 34px 25px; background: #151b19; color: #f5f6ef; min-width: 0; position: relative; }
+.inspiration-story::before { content: ""; width: 3px; height: 38px; position: absolute; top: 30px; left: 0; background: var(--orange); }
+.inspiration-story-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+.inspiration-story-top > span:first-child { color: #bbc8bc; font-size: 6px; font-weight: 700; letter-spacing: 1.1px; margin-top: 8px; line-height: 1.8; }
+.inspiration-story-index { font-family: "Barlow Condensed", sans-serif; font-size: 44px; font-weight: 700; line-height: .9; color: #a9b9a9; }
+.inspiration-story-index > small { font-family: var(--font-body); display: block; font-size: 6px; font-weight: 500; letter-spacing: 1px; margin-top: 7px; color: #bfccbc; text-align: right; }
+.inspiration-story-copy { margin: 33px 0 24px; animation: inspiration-copy-in .25s ease-out; }
+.inspiration-story-category { color: #d0dbcc; font-size: 6px; letter-spacing: 1.1px; font-weight: 700; }
+.inspiration-story-copy h3 { font-size: 33px; font-weight: 500; line-height: 1.1; letter-spacing: -1.3px; margin: 15px 0 20px; }
+.inspiration-story-copy h3 > em { font-style: normal; color: #c2d0b7; }
+.inspiration-story-copy > p { color: #bccabb; font-size: 11px; line-height: 1.85; max-width: 310px; }
+.inspiration-request { font-size: 10px; line-height: 1.6; margin-top: 23px; color: #fff; gap: 15px; text-align: left; width: 100%; justify-content: space-between; border-bottom: 1px solid #6c7b6655; padding: 10px 0 14px; }
+.inspiration-request svg { color: var(--orange); }
+.inspiration-controls { display: flex; align-items: center; justify-content: space-between; gap: 17px; margin-top: auto; padding-top: 17px; border-top: 1px solid #64735c44; }
+.inspiration-controls > span { font-size: 5px; letter-spacing: .8px; color: #bfccbb; line-height: 1.8; }
+.inspiration-controls > div { display: flex; gap: 7px; }
+.inspiration-controls .icon-button { height: 33px; width: 33px; border-radius: 0; border-color: #5a6a51; }
+.inspiration-controls .icon-button:hover { background: #30452a; color: #ffad6d; }
+.inspiration-index { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 28px; margin-top: 23px; }
+.inspiration-index > button { display: flex; align-items: center; gap: 16px; text-align: left; padding: 15px 0; min-width: 0; background: none; border-bottom: 1px solid #b8c3b5; color: #4e5d4a; position: relative; transition: border-color .2s; }
+.inspiration-index > button::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 2px; width: 0; background: #b64a00; transition: width .25s; }
+.inspiration-index > button.active::after { width: 100%; }
+.inspiration-thumb { display: block; position: relative; width: 76px; height: 56px; flex-shrink: 0; overflow: hidden; }
+.inspiration-thumb img { object-fit: cover; filter: saturate(.5); opacity: .65; transition: opacity .2s, filter .2s; }
+.inspiration-index > button.active .inspiration-thumb img,.inspiration-index > button:hover .inspiration-thumb img { filter: saturate(1); opacity: 1; }
+.inspiration-index-text { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.inspiration-index-text > small { font-size: 6px; letter-spacing: 1px; font-weight: 700; }
+.inspiration-index-text > strong { font-family: var(--font-display); font-size: 21px; font-weight: 500; letter-spacing: -.5px; }
+.inspiration-index > button.active { color: #1c2c1a; }
+.inspiration-index-arrow { display: grid; place-items: center; height: 28px; width: 28px; flex-shrink: 0; }
+.inspiration-index > button.active .inspiration-index-arrow { color: #b74b00; }
+.inspiration-bottom { display: flex; align-items: center; justify-content: space-between; gap: 25px; margin-top: 22px; color: #586753; }
+.inspiration-bottom p { font-size: 9px; line-height: 1.8; }
+.inspiration-bottom > span { font-size: 9px; font-weight: 600; }
+.inspiration-image-error { padding: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #203618; }
+.inspiration-image-error p { font-size: 12px; text-align: center; }
+.inspiration-image-error .text-link { font-size: 11px; margin-top: 17px; }
+@keyframes inspiration-photo-in { from { opacity: .7; transform: scale(1.015); } to { opacity: 1; transform: scale(1); } }
+@keyframes inspiration-copy-in { from { opacity: .4; translate: 0 7px; } to { opacity: 1; translate: 0 0; } }
+@media(max-width:1150px) {
+  .inspiration-showcase { grid-template-columns: 1.6fr 1fr; min-height: 420px; }
+  .inspiration-story { padding: 27px 27px 23px; }
+  .inspiration-story-copy h3 { font-size: 29px; }
+  .inspiration-index { gap: 22px; }
+  .inspiration-thumb { width: 66px; height: 51px; }
+  .inspiration-index > button { gap: 12px; }
+  .inspiration-index-text > strong { font-size: 19px; }
+}
+@media(max-width:950px) {
+  .inspiration-section { padding: 75px 0 55px; }
+  .inspiration-heading h2 { font-size: 39px; }
+  .inspiration-heading-aside p { font-size: 10px; }
+  .inspiration-showcase { grid-template-columns: 1.2fr 1fr; min-height: 417px; }
+  .inspiration-story { padding: 25px 23px 22px; }
+  .inspiration-story-copy h3 { font-size: 28px; }
+  .inspiration-story-copy > p { font-size: 10px; }
+  .inspiration-story-copy { margin-top: 30px; }
+  .inspiration-request { font-size: 9px; }
+  .inspiration-story-top > span:first-child { font-size: 5px; }
+  .inspiration-image-disclaimer { top: 18px; left: 18px; font-size: 5px; }
+  .inspiration-image-meta { bottom: 18px; left: 18px; right: 18px; gap: 12px; }
+  .inspiration-image-meta > span { font-size: 8px; letter-spacing: .7px; gap: 8px; }
+  .inspiration-image-meta i { width: 14px; }
+  .inspiration-enlarge { padding: 10px; gap: 11px; font-size: 8px; }
+  .inspiration-enlarge svg { width: 16px; }
+  .inspiration-index { gap: 18px; }
+  .inspiration-thumb { width: 53px; height: 46px; }
+  .inspiration-index > button { gap: 11px; }
+  .inspiration-index-text > strong { font-size: 17px; }
+  .inspiration-index-text > small { font-size: 5px; }
+  .inspiration-index-arrow { width: 20px; }
+  .inspiration-index-arrow svg { width: 15px; }
+  .inspiration-bottom p,.inspiration-bottom > span { font-size: 8px; }
+}
+@media(max-width:700px) {
+  .inspiration-section { padding: 60px 0 43px; }
+  .inspiration-heading { flex-direction: column; align-items: flex-start; gap: 18px; margin-bottom: 27px; }
+  .inspiration-heading .eyebrow { font-size: 7px; letter-spacing: 1px; margin-bottom: 18px; }
+  .inspiration-heading h2 { font-size: 34px; letter-spacing: -1.5px; line-height: 1.13; }
+  .inspiration-heading-aside { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 22px; padding: 0; }
+  .inspiration-heading-aside p { font-size: 10px; line-height: 1.8; }
+  .inspiration-heading-aside > span { font-size: 5px; letter-spacing: .7px; line-height: 1.8; margin-top: 0; text-align: right; max-width: 90px; }
+  .inspiration-showcase { grid-template-columns: 1fr; min-height: 0; }
+  .inspiration-image { aspect-ratio: 1.25; }
+  .inspiration-image > img { object-position: center; }
+  .inspiration-image-disclaimer { left: 16px; top: 16px; padding: 6px 8px; font-size: 5px; }
+  .inspiration-image-meta { left: 16px; right: 16px; bottom: 16px; }
+  .inspiration-image-meta > span { font-size: 8px; gap: 9px; letter-spacing: 1px; }
+  .inspiration-image-meta i { width: 21px; }
+  .inspiration-enlarge { font-size: 8px; gap: 11px; padding: 9px 11px; min-height: 39px; }
+  .inspiration-story { padding: 23px 24px 21px; }
+  .inspiration-story::before { top: 23px; height: 30px; }
+  .inspiration-story-top > span:first-child { font-size: 6px; margin-top: 5px; }
+  .inspiration-story-index { font-size: 32px; }
+  .inspiration-story-index > small { font-size: 5px; margin-top: 5px; }
+  .inspiration-story-copy { margin-top: 22px; margin-bottom: 18px; }
+  .inspiration-story-category { font-size: 6px; }
+  .inspiration-story-copy h3 { font-size: 32px; line-height: 1.13; margin: 12px 0 16px; letter-spacing: -1.1px; }
+  .inspiration-story-copy > p { font-size: 11px; line-height: 1.9; max-width: none; }
+  .inspiration-request { font-size: 10px; margin-top: 18px; min-height: 43px; padding-bottom: 14px; }
+  .inspiration-controls { padding-top: 15px; }
+  .inspiration-controls > span { font-size: 5px; letter-spacing: .8px; }
+  .inspiration-controls .icon-button { height: 34px; width: 34px; }
+  .inspiration-index { gap: 10px; margin-top: 17px; }
+  .inspiration-index > button { flex-direction: column; align-items: flex-start; gap: 10px; padding: 0 0 13px; }
+  .inspiration-thumb { width: 100%; height: auto; aspect-ratio: 1.3; }
+  .inspiration-index-text { gap: 7px; }
+  .inspiration-index-text > small { font-size: 5px; letter-spacing: .7px; }
+  .inspiration-index-text > strong { font-size: 16px; }
+  .inspiration-index-arrow { display: none; }
+  .inspiration-bottom { align-items: flex-start; flex-direction: column; gap: 8px; margin-top: 19px; }
+  .inspiration-bottom p { font-size: 8px; max-width: 320px; }
+  .inspiration-bottom > span { font-size: 8px; }
+}
+@media(max-width:370px) {
+  .inspiration-heading h2 { font-size: 30px; }
+  .inspiration-heading .eyebrow { font-size: 6px; }
+  .inspiration-story { padding-left: 20px; padding-right: 20px; }
+  .inspiration-story-copy h3 { font-size: 29px; }
+  .inspiration-index-text > strong { font-size: 14px; }
+  .inspiration-index { gap: 8px; }
+  .inspiration-image-meta > span { font-size: 7px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .inspiration-section *, .inspiration-section *::after { animation: none !important; transition: none !important; }
+}

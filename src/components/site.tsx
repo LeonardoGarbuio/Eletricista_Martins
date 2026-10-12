@@ -1,0 +1,65 @@
+"use client";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { ArrowRight, ArrowUpRight, CalendarDays, Check, ChevronLeft, ChevronRight, ClipboardList, House, Instagram, MapPin, Menu, MessageCircle, Plus, Wrench, X, Zap } from "lucide-react";
+import { business, portfolio } from "@/config/business";
+import { emptyQuote, whatsappUrl } from "@/lib/quote";
+import { Brand } from "./brand";
+import { Dialog } from "./dialog";
+import { ServicesCatalog } from "./services-catalog";
+import { QuoteWizard } from "./quote-wizard";
+import { HowItWorks } from "./how-it-works";
+import { Hero } from "./hero";
+import { InspirationGallery } from "./inspiration-gallery";
+
+const nav = [["Início", "inicio"], ["Serviços", "servicos"], ["Como funciona", "como-funciona"], ["Contato", "contato"]];
+export function Site() {
+  const [selected, setSelected] = useState<string[]>([]);
+  const [details, setDetails] = useState(emptyQuote);
+  const [quoteOpen, setQuoteOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [assistantOpen, setAssistantOpen] = useState(false);
+  const [assistantNotice, setAssistantNotice] = useState(false);
+  const [gallery, setGallery] = useState<number | null>(null);
+  const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [activeNav, setActiveNav] = useState("inicio");
+  const contactUrl = whatsappUrl(business.whatsapp, "Olá, equipe Eletricista Martins! Gostaria de conversar sobre um serviço.");
+  const toggle = (id: string) => setSelected(prev => prev.includes(id) ? prev.filter(value => value !== id) : [...prev, id]);
+  function openQuote() { setMenuOpen(false); setAssistantOpen(false); setQuoteOpen(true); }
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("is-visible"); observer.unobserve(entry.target); } }); }, { threshold: 0.08 });
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    const navObserver = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) setActiveNav(entry.target.id); }); }, { rootMargin: "-15% 0px -65% 0px" });
+    nav.forEach(([, id]) => { const el = document.getElementById(id); if (el) navObserver.observe(el); });
+    return () => { observer.disconnect(); navObserver.disconnect(); };
+  }, []);
+  useEffect(() => { if (!menuOpen) return; const handler = (event: KeyboardEvent) => { if (event.key === "Escape") { setMenuOpen(false); document.getElementById("menu-toggle")?.focus(); } }; document.addEventListener("keydown", handler); return () => document.removeEventListener("keydown", handler); }, [menuOpen]);
+  return <>
+    <a href="#conteudo" className="skip-link">Pular para o conteúdo</a>
+    <div className="topbar"><div className="container"><span><MapPin size={12} /> PONTA GROSSA E REGIÃO</span><span>ELÉTRICA. MANUTENÇÃO. SOLUÇÃO.</span><span className="demo-badge">PRÉVIA V1</span></div></div>
+    <header className="site-header"><div className="container header-inner"><Brand /><nav className="desktop-nav" aria-label="Navegação principal">{nav.map(([label, id]) => <a className={activeNav === id ? "active" : ""} href={`#${id}`} key={id}>{label}</a>)}</nav><button className="button button-primary header-cta" onClick={openQuote}>Solicitar orçamento <ArrowUpRight size={17} /></button><button id="menu-toggle" className="icon-button menu-toggle" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen} aria-controls="mobile-nav" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button></div>{menuOpen && <nav id="mobile-nav" className="mobile-nav" aria-label="Navegação mobile">{nav.map(([label, id]) => <a key={id} href={`#${id}`} onClick={() => setMenuOpen(false)}>{label}<ArrowUpRight size={17} /></a>)}<button className="button button-primary" onClick={openQuote}>Solicitar orçamento <ArrowRight size={18} /></button></nav>}</header>
+    <main id="conteudo">
+      <Hero openQuote={openQuote} />
+      <div className="expertise-strip"><div className="container"><span><Zap size={21} /> ELÉTRICA</span><span className="strip-plus">+</span><span><Wrench size={20} /> MANUTENÇÃO</span><span className="strip-plus">+</span><span><House size={20} /> REFORMAS</span><span className="strip-caption">Um contato.<br /><strong>Muitas soluções.</strong></span></div></div>
+      <ServicesCatalog selected={selected} toggle={toggle} openQuote={openQuote} />
+      <HowItWorks selected={selected} details={details} openQuote={openQuote} />
+      <InspirationGallery onEnlarge={setGallery} onRequest={serviceId => { setSelected(previous => previous.includes(serviceId) ? previous : [...previous, serviceId]); openQuote(); }} />
+      <section className="quote-callout" id="orcamento" aria-labelledby="cta-title"><div className="container"><div className="callout-mark" aria-hidden="true"><Zap strokeWidth={.65} /></div><div className="callout-copy reveal"><p className="eyebrow"><span /> VAMOS TIRAR DO PAPEL?</p><h2 id="cta-title">A solução começa<br />com uma conversa<span>.</span></h2><p>Selecione os serviços. Conte o que precisa.<br />Deixe o próximo passo com a gente.</p></div><div className="callout-action reveal"><button className="button button-primary" onClick={openQuote}>Montar meu orçamento <ArrowUpRight size={21} /></button><span><Check size={14} /> Sem compromisso. Do seu jeito.</span><p>Preferência de horário sujeita à confirmação.</p></div></div></section>
+      <section className="faq-section section" aria-labelledby="faq-title"><div className="container faq-grid"><div><p className="eyebrow"><span /> FICOU ALGUMA DÚVIDA?</p><h2 id="faq-title">Tudo às claras.</h2><p>Algumas respostas para<br />facilitar o primeiro contato.</p></div><div className="faq-list">{[
+        ["Como funciona o orçamento?", "Você escolhe os serviços e informa sua necessidade, região e preferência de atendimento. O site prepara uma mensagem para você enviar pelo WhatsApp. A equipe analisa os detalhes e conversa com você sobre a avaliação e o orçamento."],
+        ["O horário escolhido já fica reservado?", "Não. A data e o período são apenas sua preferência. O atendimento só é confirmado depois que a equipe analisa a solicitação e combina os detalhes diretamente com você."],
+        ["Posso solicitar mais de um serviço?", "Sim. Você pode selecionar vários serviços no catálogo e enviar tudo em uma única solicitação. A equipe avalia como organizar o atendimento."],
+        ["Vocês também fazem manutenção e reformas?", "Além dos serviços elétricos, a Eletricista Martins coordena serviços complementares de manutenção e reformas. Esses serviços podem ser realizados por profissionais parceiros, conforme a necessidade e a avaliação do pedido."],
+        ["Esta versão já envia pedidos reais?", "Esta é uma prévia para demonstração. Enquanto o WhatsApp da empresa não estiver confirmado, você pode montar, copiar e baixar a mensagem. Com o número configurado, o botão abre o WhatsApp e você decide se deseja enviar. O site não confirma recebimento ou agendamento."],
+      ].map(([question, answer]) => <details key={question}><summary>{question}<Plus size={18} /></summary><p>{answer}</p></details>)}</div></div></section>
+      <section className="contact-section" id="contato" aria-labelledby="contact-title"><div className="container contact-grid"><div><p className="eyebrow"><span /> PERTO DE VOCÊ</p><h2 id="contact-title">Vamos encontrar<br />a sua solução.</h2><p className="contact-company">Serviços elétricos para casas e empresas em Ponta Grossa. Para necessidades além da elétrica, a Martins coordena manutenção e reformas com profissionais parceiros.</p></div><div className="contact-links"><div><MapPin size={23} /><span><small>ONDE ATENDEMOS</small><strong>Ponta Grossa e região · PR</strong></span></div><a href={business.instagram} target="_blank" rel="noopener noreferrer"><Instagram size={23} /><span><small>ACOMPANHE NO INSTAGRAM</small><strong>Eletricista Martins</strong></span><ArrowUpRight size={20} /></a>{contactUrl ? <a href={contactUrl} target="_blank" rel="noopener noreferrer"><MessageCircle size={23} /><span><small>VAMOS CONVERSAR</small><strong>Falar pelo WhatsApp</strong></span><ArrowUpRight size={20} /></a> : <button onClick={openQuote}><MessageCircle size={23} /><span><small>COMECE POR AQUI</small><strong>Prepare sua solicitação</strong></span><ArrowUpRight size={20} /></button>}</div></div></section>
+    </main>
+    <footer className="site-footer"><div className="container"><div className="footer-main"><Brand /><p>Energia para transformar.<br />Soluções para facilitar.</p><a className="back-to-top" href="#inicio">VOLTAR AO TOPO <ArrowUpRight size={16} /></a></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Eletricista Martins · Ponta Grossa / PR</span><div><span>Prévia demonstrativa V1</span><button onClick={() => setPrivacyOpen(true)}>Privacidade</button></div></div></div></footer>
+    <div className="mobile-quote-bar"><button className="button button-primary" onClick={openQuote}>{selected.length ? `Continuar orçamento (${selected.length})` : "Solicitar orçamento"}<ArrowUpRight size={18} /></button></div>
+    <button className="assistant-trigger" onClick={() => { setAssistantNotice(false); setAssistantOpen(true); }} aria-label="Abrir atendimento guiado"><MessageCircle size={23} /><span>Como podemos ajudar?</span><span className="assistant-dot" /></button>
+    {quoteOpen && <QuoteWizard selected={selected} toggle={toggle} onClose={() => setQuoteOpen(false)} details={details} setDetails={setDetails} />}
+    {assistantOpen && <Dialog onClose={() => setAssistantOpen(false)} labelledBy="assistant-title" className="assistant-dialog"><div className="assistant-heading"><span className="assistant-avatar has-logo"><img src={business.logoPath} alt="Logo Eletricista Martins" width="45" height="45" /></span><div><h2 id="assistant-title">Olá! Vamos facilitar?</h2><span>ATENDIMENTO GUIADO · PRÉVIA</span></div></div><p>Bem-vindo à Eletricista Martins. Escolha uma opção para encontrar o que precisa.</p><div className="assistant-options"><button onClick={openQuote}><ClipboardList size={20} /><span>Solicitar orçamento</span><ChevronRight size={17} /></button><button onClick={() => { setAssistantOpen(false); document.getElementById("servicos")?.scrollIntoView({ behavior: "smooth" }); }}><Wrench size={20} /><span>Conhecer os serviços</span><ChevronRight size={17} /></button><button onClick={openQuote}><CalendarDays size={20} /><span>Solicitar um horário</span><ChevronRight size={17} /></button>{contactUrl ? <a href={contactUrl} target="_blank" rel="noopener noreferrer"><MessageCircle size={20} /><span>Falar pelo WhatsApp</span><ArrowUpRight size={17} /></a> : <button onClick={() => setAssistantNotice(true)}><MessageCircle size={20} /><span>Falar pelo WhatsApp</span><ChevronRight size={17} /></button>}</div>{assistantNotice && <p className="assistant-notice" role="status">O número da empresa ainda será confirmado. Use “Solicitar orçamento” para preparar, copiar ou baixar sua mensagem nesta prévia.</p>}<p className="assistant-footnote">Orientação por opções, sem chat ao vivo. A confirmação do atendimento é feita pela equipe.</p></Dialog>}
+    {gallery !== null && <Dialog onClose={() => setGallery(null)} labelledBy="gallery-title" className="gallery-dialog"><div className="gallery-image"><Image src={portfolio[gallery].src} alt={portfolio[gallery].alt} fill sizes="90vw" quality={90} /></div><div className="gallery-caption"><div><span>REFERÊNCIA ILUSTRATIVA · {gallery + 1} / {portfolio.length}</span><h2 id="gallery-title">{portfolio[gallery].title}</h2><p>Referência gerada por IA. Não é uma obra da empresa.</p></div><div className="gallery-controls"><button className="icon-button" aria-label="Imagem anterior" onClick={() => setGallery((gallery + portfolio.length - 1) % portfolio.length)}><ChevronLeft /></button><button className="icon-button" aria-label="Próxima imagem" onClick={() => setGallery((gallery + 1) % portfolio.length)}><ChevronRight /></button></div></div></Dialog>}
+    {privacyOpen && <Dialog onClose={() => setPrivacyOpen(false)} labelledBy="privacy-title" className="privacy-dialog"><p className="eyebrow">SEUS DADOS</p><h2 id="privacy-title">Privacidade nesta prévia</h2><p>Os dados preenchidos no orçamento ficam apenas na memória desta página. Ao recarregar ou fechar a aba, eles são descartados. Não usamos analytics, rastreamento ou cookies de publicidade.</p><p>Quando você escolhe copiar ou baixar a mensagem, o conteúdo é transferido para sua área de transferência ou para um arquivo no seu dispositivo.</p><p>Com um número autorizado configurado, o botão de WhatsApp abre um serviço externo com os dados do pedido no link. O envio da mensagem depende da sua ação no WhatsApp e está sujeito às políticas desse serviço.</p><p>Esta prévia não cria reservas nem armazena solicitações em um servidor.</p></Dialog>}
+  </>;
+}

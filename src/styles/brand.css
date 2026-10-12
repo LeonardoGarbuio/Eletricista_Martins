@@ -1,0 +1,23 @@
+.brand--original .brand-logo {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.brand--original { gap: 12px; }
+.wizard-logo .wizard-brand-image { width: 40px; height: 40px; object-fit: contain; border-radius: 3px; }
+.assistant-avatar.has-logo { width: 45px; height: 45px; background: #000; border-radius: 4px; overflow: hidden; }
+.assistant-avatar.has-logo img { width: 45px; height: 45px; object-fit: contain; }
+@media(max-width:650px) {
+  .brand--original { gap: 8px; }
+  .brand--original .brand-logo { width: 44px; height: 44px; }
+  .brand--original .brand-type strong { font-size: 20px; }
+  .brand--original .brand-type > span { font-size: 6px; letter-spacing: 2.4px; }
+}
+@media(max-width:370px) {
+  .brand--original { gap: 7px; }
+  .brand--original .brand-logo { width: 39px; height: 39px; }
+  .brand--original .brand-type strong { font-size: 18px; }
+  .brand--original .brand-type > span { font-size: 5px; letter-spacing: 2px; }
+}

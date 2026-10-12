@@ -1,0 +1,226 @@
+.how-connected {
+  background: #0b0d10;
+  border-bottom: 1px solid #272c33;
+}
+
+.how-connected-heading {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 59px;
+}
+
+.how-connected-heading .eyebrow {
+  justify-content: center;
+  color: #bdc2ca;
+  font-size: 9px;
+  letter-spacing: 1.7px;
+  margin-bottom: 20px;
+}
+
+.how-connected-heading h2 {
+  font-size: 42px;
+  line-height: 1.12;
+  letter-spacing: -1.7px;
+}
+
+.how-connected-heading h2 > span { color: #a3a9b3; }
+
+.how-connected-heading > p {
+  margin: 21px auto 0;
+  font-size: 13px;
+  line-height: 1.9;
+  color: #a6adb8;
+}
+
+.how-journey {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 48px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: relative;
+  isolation: isolate;
+}
+
+.how-journey::before {
+  content: "";
+  position: absolute;
+  top: 43px;
+  left: calc((100% - 96px) / 6);
+  right: calc((100% - 96px) / 6);
+  height: 1px;
+  background: linear-gradient(90deg, #bc550c 0%, #704323 30%, #343a42 58%, #343a42 100%);
+  z-index: -1;
+}
+
+.how-milestone { text-align: center; min-width: 0; }
+
+.how-node {
+  position: relative;
+  width: 86px;
+  height: 86px;
+  margin: 0 auto 28px;
+  border: 1px solid #363c45;
+  border-radius: 23px;
+  background: #0e1115;
+  display: grid;
+  place-items: center;
+  transition: border-color .2s, transform .2s;
+  box-shadow: inset 0 1px 0 #ffffff06;
+}
+
+.how-node::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 29px;
+  width: 26px;
+  height: 1px;
+  background: #ff710a;
+}
+
+.how-node-number {
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -1.5px;
+  color: var(--orange);
+}
+
+.how-node-icon {
+  position: absolute;
+  right: -9px;
+  bottom: -8px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #424952;
+  outline: 5px solid #0b0d10;
+  border-radius: 50%;
+  background: #1b2027;
+  color: #d6dbe3;
+}
+
+.how-milestone:hover .how-node,
+.how-milestone:focus-within .how-node {
+  border-color: #ab5a1c;
+  transform: translateY(-3px);
+}
+
+.how-phase-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #a4adba;
+}
+
+.how-milestone h3 {
+  font-size: 23px;
+  line-height: 1.25;
+  letter-spacing: -.6px;
+  margin-bottom: 14px;
+}
+
+.how-milestone p {
+  margin: 0 auto;
+  max-width: 315px;
+  font-size: 12px;
+  color: #a6adba;
+  line-height: 1.95;
+  min-height: 70px;
+}
+
+.how-milestone .text-link {
+  font-size: 10px;
+  margin-top: 15px;
+  gap: 9px;
+}
+
+.how-milestone .text-link svg { color: var(--orange); }
+
+.how-assurance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 35px auto 0;
+  padding-top: 25px;
+  border-top: 1px solid #2a3038;
+  max-width: 670px;
+}
+
+.how-assurance-check { display: grid; place-items: center; color: var(--orange); }
+.how-assurance p { color: #a6afbd; font-size: 10px; line-height: 1.9; }
+.how-assurance strong { font-weight: 500; color: #d2d7df; }
+
+.how-current-request {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.how-current-request > span { color: #b0b8c5; font-size: 10px; }
+.how-current-request .text-link { font-size: 10px; gap: 9px; }
+.how-current-request svg { color: var(--orange); }
+
+@media (max-width: 950px) {
+  .how-connected-heading { margin-bottom: 46px; }
+  .how-connected-heading h2 { font-size: 38px; }
+  .how-connected-heading > p { font-size: 12px; }
+  .how-journey { gap: 27px; }
+  .how-journey::before { left: calc((100% - 54px) / 6); right: calc((100% - 54px) / 6); }
+  .how-milestone h3 { font-size: 21px; }
+  .how-milestone p { font-size: 11px; min-height: 85px; }
+  .how-milestone .text-link { font-size: 9px; }
+}
+
+@media (max-width: 650px) {
+  .how-connected-heading { text-align: left; margin-bottom: 37px; max-width: 100%; }
+  .how-connected-heading .eyebrow { justify-content: flex-start; font-size: 8px; letter-spacing: 1.3px; margin-bottom: 18px; }
+  .how-connected-heading h2 { font-size: 35px; letter-spacing: -1.5px; line-height: 1.15; }
+  .how-connected-heading > p { font-size: 11px; margin-top: 18px; max-width: 310px; }
+  .how-title-break { display: none; }
+  .how-journey { grid-template-columns: 1fr; gap: 32px; }
+  .how-journey::before { width: 1px; height: auto; left: 33px; right: auto; top: 34px; bottom: 110px; background: linear-gradient(180deg, #bd570f, #4b3730 37%, #353c45 70%); }
+  .how-milestone { display: flex; gap: 25px; text-align: left; align-items: flex-start; }
+  .how-node { width: 67px; height: 67px; margin: 0; flex-shrink: 0; border-radius: 18px; }
+  .how-node::before { left: 21px; width: 23px; }
+  .how-node-number { font-size: 27px; letter-spacing: -1.1px; }
+  .how-node-icon { right: -7px; bottom: -7px; width: 25px; height: 25px; outline-width: 4px; }
+  .how-node-icon svg { width: 14px; height: 14px; }
+  .how-phase-label { font-size: 6px; letter-spacing: 1px; margin-bottom: 9px; padding-top: 3px; }
+  .how-milestone h3 { font-size: 22px; letter-spacing: -.6px; line-height: 1.25; margin-bottom: 11px; }
+  .how-milestone p { font-size: 11px; min-height: 0; max-width: 280px; margin: 0; line-height: 1.9; }
+  .how-milestone .text-link { font-size: 9px; margin-top: 7px; gap: 8px; min-height: 40px; }
+  .how-milestone .text-link svg { width: 13px; }
+  .how-assurance { justify-content: flex-start; align-items: flex-start; margin-top: 28px; padding-top: 21px; gap: 10px; }
+  .how-assurance-check { margin-top: 3px; }
+  .how-assurance p { font-size: 10px; max-width: 310px; }
+  .how-assurance strong { display: block; }
+  .how-current-request { align-items: flex-start; justify-content: flex-start; gap: 6px; margin-top: 13px; flex-direction: column; }
+  .how-current-request > span { font-size: 9px; }
+  .how-current-request .text-link { font-size: 9px; }
+}
+
+@media (max-width: 370px) {
+  .how-connected-heading h2 { font-size: 31px; }
+  .how-milestone { gap: 19px; }
+  .how-node { width: 57px; height: 57px; border-radius: 15px; }
+  .how-node::before { left: 17px; width: 21px; }
+  .how-node-number { font-size: 24px; }
+  .how-node-icon { width: 23px; height: 23px; }
+  .how-journey::before { left: 28px; top: 29px; bottom: 127px; }
+  .how-milestone h3 { font-size: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .how-connected *, .how-connected *::before { transition: none !important; }
+}
