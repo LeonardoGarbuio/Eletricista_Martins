@@ -13,8 +13,9 @@ import "./globals.css";
 import "../styles/hero.css";
 import "../styles/inspiration.css";
 import "../styles/brand.css";
+import "../styles/segments.css";
 const title = "Eletricista Martins | Serviços elétricos em Ponta Grossa";
-const description = "Serviços elétricos residenciais e comerciais em Ponta Grossa. Instalações, iluminação, manutenção e reformas. Prepare seu orçamento e solicite uma preferência de atendimento.";
+const description = "Serviços elétricos para residências, comércios, condomínios, empresas, hospitais e indústrias em Ponta Grossa e região. Atendimento em outros estados mediante consulta. Solicite seu orçamento.";
 export const metadata: Metadata = {
   metadataBase: new URL(business.siteUrl), title, description,
   robots: business.indexable ? { index: true, follow: true } : { index: false, follow: false, nocache: true },

@@ -3,6 +3,29 @@ import AxeBuilder from "@axe-core/playwright";
 
 async function next(page: Page) { await page.getByRole("button", { name: "Continuar", exact: true }).click(); }
 
+test("quem atendemos apresenta segmentos e conecta ao orçamento", async ({ page }, testInfo) => {
+  await page.goto("/");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const section = page.locator("#quem-atendemos");
+  await section.scrollIntoViewIfNeeded();
+  for (const name of ["Residências", "Comércios e empresas", "Condomínios", "Farmácias", "Franquias", "Supermercados", "Hospitais", "Área industrial"]) {
+    await expect(section.getByRole("heading", { name, exact: true })).toBeVisible();
+  }
+  await expect(section).toContainText("Atendimento em outros estados mediante consulta.");
+  await section.screenshot({ path: `test-results/segments-${testInfo.project.name}.png` });
+  await page.getByRole("button", { name: "Solicitar Instalações elétricas", exact: true }).click();
+  await section.getByRole("button", { name: "Conversar sobre minha demanda", exact: true }).click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Instalações elétricas Serviço elétrico", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await next(page);
+  for (const value of ["Condomínio", "Farmácia", "Franquia", "Supermercado", "Hospital", "Área industrial", "Outro"]) {
+    await page.getByLabel("Tipo de local", { exact: true }).selectOption(value);
+    await expect(page.getByLabel("Tipo de local", { exact: true })).toHaveValue(value);
+  }
+  const audit = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
+  expect(audit.violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => n.target) }))).toEqual([]);
+});
+
 test("vitrine de inspirações conecta referências ao orçamento", async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
@@ -47,6 +70,8 @@ test("vitrine de inspirações conecta referências ao orçamento", async ({ pag
 });
 
 test("catálogo, pedido completo e mensagem de WhatsApp", async ({ page }, testInfo) => {
+  const local = testInfo.project.name === "mobile" ? "Joinville / SC, Centro" : "Ponta Grossa / PR, Uvaranas";
+  const property = testInfo.project.name === "mobile" ? "Supermercado" : "Casa";
   const errors: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
   await page.goto("/");
@@ -60,9 +85,9 @@ test("catálogo, pedido completo e mensagem de WhatsApp", async ({ page }, testI
   await expect(page.getByRole("button", { name: "Instalações elétricas Serviço elétrico", exact: true })).toHaveAttribute("aria-pressed", "true");
   await next(page);
   await next(page);
-  await expect(page.getByText("Informe seu bairro ou região.", { exact: true })).toBeVisible();
-  await page.getByLabel("Bairro ou região", { exact: true }).fill("Uvaranas");
-  await page.getByRole("radio", { name: "Casa", exact: true }).check();
+  await expect(page.getByText("Informe a cidade / UF e o bairro ou região.", { exact: true })).toBeVisible();
+  await page.getByLabel("Cidade / UF e bairro ou região", { exact: true }).fill(local);
+  await page.getByLabel("Tipo de local", { exact: true }).selectOption(property);
   await page.getByLabel("O que precisa ser feito?", { exact: true }).fill("Instalar iluminação na sala e revisar a instalação elétrica.");
   await page.getByLabel("Mais algum detalhe?", { exact: false }).fill("Acesso pelo portão lateral.");
   await next(page);
@@ -77,9 +102,12 @@ test("catálogo, pedido completo e mensagem de WhatsApp", async ({ page }, testI
   await expect(dialog).toContainText("Sujeito à confirmação da equipe");
   await expect(dialog).toContainText("20 de outubro de 2099");
   await expect(dialog).toContainText("Cliente Demonstração");
+  await expect(dialog).toContainText(local);
+  await expect(dialog).toContainText(property);
   await page.getByRole("button", { name: "Preparar mensagem" }).click();
   const message = await page.getByLabel("Mensagem para o WhatsApp").inputValue();
-  for (const part of ["Instalações elétricas", "Iluminação e luminárias", "Uvaranas", "Casa", "Tarde", "Cliente Demonstração", "(42) 99999-9999", "portão lateral", "depende da confirmação"]) expect(message).toContain(part);
+  for (const part of ["Instalações elétricas", "Iluminação e luminárias", local, `Tipo de local: ${property}`, "Tarde", "Cliente Demonstração", "(42) 99999-9999", "portão lateral", "depende da confirmação"]) expect(message).toContain(part);
+  if (testInfo.project.name === "mobile") expect(message).not.toContain("Ponta Grossa");
   const link = page.getByRole("link", { name: "Abrir WhatsApp e continuar" });
   const url = new URL((await link.getAttribute("href"))!);
   expect(url.pathname).toBe("/554227020749");

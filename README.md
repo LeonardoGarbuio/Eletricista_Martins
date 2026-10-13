@@ -37,11 +37,14 @@ Esses valores são públicos e incorporados à compilação. Reinicie o desenvol
 ## O que funciona
 
 - Navegação responsiva e menu mobile, incluindo teclado e foco visível.
+- Seção “Quem atendemos” com residências, comércios e empresas, condomínios, farmácias, franquias, supermercados, hospitais e área industrial.
+- Atendimento em outros estados mediante consulta, informado na seção de segmentos, nas perguntas frequentes e no contato.
 - Catálogo de 15 serviços com categorias, busca sem distinção de acentos, seleção múltipla e resumo contextual.
 - Orçamento em seis etapas: serviços, local, preferência, contato, revisão e encaminhamento.
 - Validação de campos, telefone brasileiro fixo/celular com DDD e data no fuso de São Paulo. Datas inválidas ou anteriores a hoje são recusadas.
 - Voltar e editar etapas; dados preservados durante a navegação na mesma página.
-- Mensagem completa com serviços, bairro, imóvel, descrição, observações, data, período, nome, telefone e regra de confirmação.
+- Formulário compacto com cidade/UF e bairro ou região em um campo e seleção do tipo de local, incluindo os segmentos empresariais e institucionais.
+- Mensagem completa com serviços, local informado, tipo de local, descrição, observações, data, período, nome, telefone e regra de confirmação. Pedidos fora do estado preservam a localização informada, sem atribuir Ponta Grossa automaticamente.
 - WhatsApp configurado, aberto exclusivamente por clique; cópia e download do texto também disponíveis.
 - Assistente guiado por opções, galeria ampliável, perguntas frequentes e aviso de privacidade.
 - Animações discretas, suporte a movimento reduzido, fontes locais e fotos responsivas.
@@ -64,6 +67,8 @@ Esses valores são públicos e incorporados à compilação. Reinicie o desenvol
 | `src/data/services.ts` | Serviços, categorias, descrições, ícones e destaques |
 | `src/lib/quote.ts` | Modelo do pedido, validação, telefone, data e mensagem |
 | `src/components/site.tsx` | Conteúdo institucional, navegação e assistente |
+| `src/components/who-we-serve.tsx` | Segmentos atendidos e aviso de atendimento fora do estado sob consulta |
+| `src/styles/segments.css` | Seção de segmentos com fundo claro e cartões responsivos |
 | `src/components/hero.tsx` | Primeira tela, título e feixe de energia em CSS |
 | `src/styles/hero.css` | Composição e tipografia do hero em desktop e celular |
 | `src/components/how-it-works.tsx` | Percurso conectado de atendimento |

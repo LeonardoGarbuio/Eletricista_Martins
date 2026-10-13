@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { services } from "../data/services";
 
-export const propertyTypes = ["Casa", "Apartamento", "Comércio", "Empresa"] as const;
+export const propertyTypes = ["Casa", "Apartamento", "Comércio", "Empresa", "Condomínio", "Farmácia", "Franquia", "Supermercado", "Hospital", "Área industrial", "Outro"] as const;
 export const periods = ["Manhã", "Tarde", "A combinar"] as const;
 export const emptyQuote = { neighborhood: "", property: "", description: "", notes: "", date: "", period: "", name: "", phone: "" };
 export type QuoteDetails = typeof emptyQuote;
@@ -18,8 +18,8 @@ function validDate(date: string) {
 const serviceIds = new Set(services.map(s => s.id));
 export const serviceSchema = z.array(z.string().refine(id => serviceIds.has(id), "Serviço inválido.")).min(1, "Escolha pelo menos um serviço.");
 export const locationSchema = z.object({
-  neighborhood: z.string().trim().min(2, "Informe seu bairro ou região.").max(100, "Use até 100 caracteres."),
-  property: z.enum(propertyTypes, { error: "Escolha o tipo de imóvel." }),
+  neighborhood: z.string().trim().min(2, "Informe a cidade / UF e o bairro ou região.").max(100, "Use até 100 caracteres."),
+  property: z.enum(propertyTypes, { error: "Escolha o tipo de local." }),
   description: z.string().trim().min(10, "Descreva sua necessidade em pelo menos 10 caracteres.").max(1000, "Use até 1.000 caracteres."),
   notes: z.string().trim().max(500, "Use até 500 caracteres."),
 });
@@ -54,7 +54,7 @@ export function buildMessage(request: QuoteRequest) {
   return [
     "Olá, equipe Eletricista Martins! Gostaria de solicitar um orçamento.", "",
     `Serviços: ${services.filter(s => data.services.includes(s.id)).map(s => s.title).join(", ")}`,
-    `Região: ${data.neighborhood} — Ponta Grossa / PR`, `Tipo de imóvel: ${data.property}`,
+    `Local do atendimento: ${data.neighborhood}`, `Tipo de local: ${data.property}`,
     `Descrição: ${data.description}`, ...(data.notes ? [`Observações: ${data.notes}`] : []),
     `Data desejada: ${formatDate(data.date)}`, `Período preferido: ${data.period}`,
     `Nome: ${data.name}`, `Telefone: ${data.phone}`, "",

@@ -11,3 +11,5 @@ Arquivos finais:
 - `public/images/inspiration-renovation.webp`: acabamentos e renovação de uma cozinha.
 
 As imagens são servidas localmente, comprimidas em WebP e adaptadas às telas pelo Next Image. Os arquivos originais ficam em `public/images/` com o sufixo `-source.png`.
+
+[Prompts utilizados na geração](gallery-image-prompts.md).

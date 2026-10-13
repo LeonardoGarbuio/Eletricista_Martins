@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { appointmentSchema, buildMessage, formatPhone, localToday, quoteSchema, validPhone, whatsappUrl } from "../src/lib/quote";
+import { appointmentSchema, buildMessage, formatPhone, localToday, propertyTypes, quoteSchema, validPhone, whatsappUrl } from "../src/lib/quote";
 
 const request = { services: ["instalacoes", "iluminacao"], neighborhood: "Uvaranas", property: "Casa", description: "Instalar duas luminárias na sala.", notes: "Acesso pelo portão lateral.", date: "2099-10-20", period: "Tarde", name: "Cliente Demonstração", phone: "(42) 99999-9999" };
 test("mensagem contém todos os campos e ressalva de confirmação", () => {
@@ -33,4 +33,19 @@ test("telefone brasileiro permite celular e fixo com DDD", () => {
 test("validação integral impede pedido sem serviço, contato ou local", () => {
   assert.ok(quoteSchema.safeParse(request).success);
   for (const patch of [{ services: [] }, { services: ["inventado"] }, { neighborhood: "" }, { property: "Outros" }, { name: "" }, { description: "curto" }, { phone: "" }]) assert.equal(quoteSchema.safeParse({ ...request, ...patch }).success, false);
+});
+test("todos os segmentos atendidos passam na validação e chegam à mensagem", () => {
+  for (const property of propertyTypes) {
+    const data = { ...request, property };
+    assert.ok(quoteSchema.safeParse(data).success, property);
+    assert.ok(buildMessage(data).includes(`Tipo de local: ${property}`), property);
+  }
+});
+test("pedido fora do estado preserva o local informado sem atribuir Ponta Grossa", () => {
+  const data = { ...request, property: "Supermercado", neighborhood: "Joinville / SC, Centro" };
+  const message = buildMessage(data);
+  assert.ok(message.includes("Local do atendimento: Joinville / SC, Centro"));
+  assert.ok(message.includes("Tipo de local: Supermercado"));
+  assert.ok(!message.includes("Ponta Grossa"));
+  assert.ok(message.includes("depende da confirmação da equipe"));
 });
